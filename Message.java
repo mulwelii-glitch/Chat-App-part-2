@@ -2,10 +2,7 @@ package chatapp;
 
 import java.util.Random;
 
-/**
- * The Message class manages individual chat message properties, 
- * unique tracking IDs, formatting hashes, and character limit checks.
- */
+
 public class Message {
     private String messageId;
     private int messageNumber; 
@@ -13,22 +10,18 @@ public class Message {
     private String messageText;
     private String messageHash;
 
-    /**
-     * Parameterized Constructor initializing core message parameters.
-     */
+   
     public Message(int messageNumber, String recipientNumber, String messageText) {
         this.messageNumber = messageNumber;
         this.recipientNumber = recipientNumber;
         this.messageText = messageText;
         
-        // Autogenerate tracking data attributes
+       
         this.messageId = generateRandom10DigitID();
         this.messageHash = createMessageHash();
     }
 
-    /**
-     * Requirement: Generates a randomly generated ten-digit number string.
-     */
+   
     private String generateRandom10DigitID() {
         Random random = new Random();
         StringBuilder sb = new StringBuilder();
@@ -38,16 +31,12 @@ public class Message {
         return sb.toString();
     }
 
-    /**
-     * Requirement: Ensures that the message ID is not more than ten characters.
-     */
+   
     public boolean checkMessageID() {
         return this.messageId != null && this.messageId.length() <= 10;
     }
 
-    /**
-     * Requirement: Ensures that the recipient cell number starts with a code.
-     */
+  
     public String checkRecipientCell() {
         if (this.recipientNumber == null || this.recipientNumber.isEmpty()) {
             return "Cell phone number is incorrectly formatted or does not contain an international code. Please correct the number and try again.";
@@ -63,10 +52,7 @@ public class Message {
         return "Cell phone number is incorrectly formatted or does not contain an international code. Please correct the number and try again.";
     }
 
-    /**
-     * Requirement: Creates and returns the Message Hash in all caps.
-     * Formula: [First two digits of ID]:[0-indexed message number]:[FirstWordLastWord]
-     */
+   
     public String createMessageHash() {
         if (this.messageId == null || this.messageId.length() < 2) {
             return "00:0:EMPTY";
@@ -85,9 +71,7 @@ public class Message {
         return compiledHash.toUpperCase();
     }
 
-    /**
-     * Requirement: Evaluates choices and computes the character overage values exactly.
-     */
+   
     public String SentMessage(int choice) {
         if (this.messageText != null && this.messageText.length() > 250) {
             int extraCharactersCount = this.messageText.length() - 250;
@@ -106,9 +90,6 @@ public class Message {
         }
     }
 
-    /**
-     * Research Requirement: Converts active elements into a clean structured JSON block.
-     */
     public String storeMessage() {
         return "  {\n" +
                "    \"messageId\": \"" + messageId + "\",\n" +
